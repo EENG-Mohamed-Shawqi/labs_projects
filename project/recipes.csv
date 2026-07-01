@@ -1,0 +1,4 @@
+category,recipe_name,ingredients,prep_time,instruction,Difficulty
+breakfast,omelette,"['egg', 'salt', 'pepper', 'oil']",10,"mix th egg,salt and pepper the pour it on the pan",easy
+dinner,bacha,"['meat', 'salt', 'pepper', 'water', 'bread']",120,cut the bread into small pieces,medium
+lunch,mandi,"['rice', 'chicken/meat', 'salt', 'garlic', 'tomato paste', 'water']",120,,hard
