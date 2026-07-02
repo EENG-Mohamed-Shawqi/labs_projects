@@ -8,7 +8,7 @@ def check_ex(df_recipes):
     """
     By Mohamed Shawqi
     This function is to check whether the file exist
-    to avoid overwriting the file while adding a new recipe
+    to avoid re-writing the columns file while adding a new recipe
     """
 
     if os.path.exists(recipes):
@@ -47,14 +47,8 @@ def view_all():
     By Ali Alsaeed this function is to
     View all the recipes if they exist
     """
-    recipes = "recipes.csv"
-    if not os.path.exists(recipes):
-        return print('There is no such file name!')
 
     df = pd.read_csv(recipes)
-
-    if df.empty:
-        return print('There is no recipes yet!')
 
 
     return df[['recipe_name', 'prep_time']]
@@ -65,13 +59,9 @@ def randomizer():
     Give a random recipe from the csv file
     """
 
-    if not os.path.exists(recipes):
-        return print('There is no such file name!')
 
     df = pd.read_csv(recipes)
 
-    if df.empty:
-        return print('There is no recipes yet!')
 
     random_index = random.randint(0,len(df)-1)
     return df.iloc[[random_index]]
@@ -82,15 +72,11 @@ def find_by_ingredient(ingredient):
  By Ali Hussain this function is to
     search for an recipe by the ingredient
     """
-    if not os.path.exists(recipes):
-        print('There is no such file name! \n choose 1 to create a file.')
-        return None
+    
 
     df = pd.read_csv(recipes)
 
-    if df.empty:
-        print('There is no recipes yet! \n choose 1 to create add recipe.')
-        return None
+    
 
     ingredient = ingredient.lower()
     matching_recipes = df[

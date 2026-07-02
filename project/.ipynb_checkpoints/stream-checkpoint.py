@@ -3,14 +3,14 @@ import recipe_st as rm
 
 st.set_page_config(page_title="Recipe Manager")
 
-# ---------------- Page state ----------------
+# start page
 if "page" not in st.session_state:
     st.session_state.page = "home"
 
 def go_to(page_name):
     st.session_state.page = page_name
 
-# ---------------- Home page ----------------
+# Home page
 if st.session_state.page == "home":
     st.title(" Recipe Manager 👨‍🍳")
     st.write("Welcome!")
@@ -22,7 +22,8 @@ if st.session_state.page == "home":
     st.button(" Random recipe", on_click=go_to, args=("random",), use_container_width=True)
     st.button(" Exit", on_click=go_to, args=("exit",), use_container_width=True)
 
-# ---------------- Add a new recipe ----------------
+# Adding new recipe
+
 elif st.session_state.page == "add":
     st.button("⬅ Back to menu", on_click=go_to, args=("home",))
     st.header("Add a new recipe 🥣")
@@ -44,7 +45,7 @@ elif st.session_state.page == "add":
             rm.save_new_recipe(category, recipe_name, ingredients, int(preptime), instruction, difficulty)
             st.success(f"'{recipe_name}' has been saved!")
 
-# ---------------- Search by ingredient ----------------
+#Search by ingredient
 elif st.session_state.page == "search":
     st.button("⬅ Back to menu", on_click=go_to, args=("home",))
     st.header("Search recipes by ingredient 🔎📖")
@@ -57,20 +58,22 @@ elif st.session_state.page == "search":
         else:
             results = rm.find_by_ingredient(ingredient)
             if results is None:
-                st.warning("No recipes file found yet. Add a recipe first.")
+                st.error("No recipes file found yet. Add a recipe first.")
             elif results.empty:
                 st.info(f"No recipes found with '{ingredient}'.")
             else:
                 st.write(f"Recipes containing **'{ingredient}'**:")
                 st.dataframe(results, use_container_width=True)
 
-# ---------------- View all recipes ----------------
+# View all recipes
 elif st.session_state.page == "view":
     st.button("⬅ Back to menu", on_click=go_to, args=("home",))
     st.header("All recipes 📖")
 
     df = rm.view_all()
     if df is None or df.empty:
+        st.error("No recipes file found yet. Add a recipe first.")
+    elif df.empty:
         st.warning("No recipes yet. Add one first!")
     else:
         st.dataframe(df, use_container_width=True)
@@ -83,7 +86,7 @@ elif st.session_state.page == "random":
     if st.button("Give me a recipe!"):
         result = rm.randomizer()
         if result is None:
-            st.warning("No recipes yet. Add one first!")
+            st.error("No recipes file found yet. Add a recipe first.")
         else:
             st.dataframe(result, use_container_width=True)
 
