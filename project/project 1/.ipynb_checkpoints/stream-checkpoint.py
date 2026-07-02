@@ -71,7 +71,7 @@ elif st.session_state.page == "view":
     st.header("All recipes 📖")
 
     df = rm.view_all()
-    if df is None or df.empty:
+    if df is None:
         st.error("No recipes file found yet. Add a recipe first.")
     elif df.empty:
         st.warning("No recipes yet. Add one first!")
