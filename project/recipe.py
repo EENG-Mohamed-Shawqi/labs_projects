@@ -31,11 +31,20 @@ def add_new_recipe():
                 break
             else:
                 print('Please type Breakfast, Lunch, Dinner or Dessert.')
+                
+    while True:
+        recipe_name=input('Enter the recipe name').strip().lower()
+        if not recipe_name:
+            print("Assign the recipe name!")
+        else:
+            break
 
-    recipe_name=input('Enter the recipe name').lower()
-
-
-    ingredients = input("Enter the ingredients (separated by commas): ").lower().split(",")
+    while True:
+        ingredients = input("Enter the ingredients (separated by commas): ").strip().lower().split(",")
+        if ingredients==['']:
+            print("Type at least one ingredient")
+        else:
+            break
 
     while True:
         try:
@@ -44,8 +53,13 @@ def add_new_recipe():
                 break
         except ValueError:
             print("Please enter a valid integer number.")
-
-    instruction=input('Enter the cooking instructions').lower()
+    
+    while True:
+            instruction=input("Enter the cooking instructions").strip().lower()
+            if not instruction:
+                print("Type 'none' if there is no instructions")
+            else: 
+                break
 
     while True:
             Difficulty=input('Enter the difficulty (Easy, Medium, Hard)').lower()
@@ -82,7 +96,7 @@ def view_all():
         return print('There is no recipes yet!')
 
 
-    return df[['recipe_name', 'prep_time']]
+    return display(df[['recipe_name', 'prep_time']])
 
 def randomizer():
     """
@@ -99,7 +113,7 @@ def randomizer():
         return print('There is no recipes yet!')
 
     random_index = random.randint(0,len(df)-1)
-    return df.iloc[[random_index]]
+    return display(df.iloc[[random_index]])
 
 
 def search_by_ingredient():
@@ -127,7 +141,7 @@ def search_by_ingredient():
         return
     else:
         print(f"\nRecipes containing '{ingredient}':")
-        return matching_recipes
+        return display(matching_recipes)
 
 
 
