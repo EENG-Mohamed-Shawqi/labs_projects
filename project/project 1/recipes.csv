@@ -1,2 +1,5 @@
 category,recipe_name,ingredients,prep_time,instruction,Difficulty
-breakfast,omelette,"['egg', '']",12,none,easy
+breakfast,omlette,"['egg', 'oil', 'cheese', 'green chili']",15,none,easy
+lunch,mandi,"['rice', 'chicken/meat', 'garlic']",15,none,easy
+dinner,shawrma,"['rice', 'chicken/meat', 'garlic']",15,none,medium
+dessert,cake,"['flower', 'water', 'egg', 'oil', 'sugar']",40,none,medium
