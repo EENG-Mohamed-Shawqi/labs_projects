@@ -1,4 +1,0 @@
-category,recipe_name,ingredients,prep_time,instruction,Difficulty
-breakfast,rice,"['rice', 'water']",20,none,easy
-lunch,rmandi,"['rice', 'water', 'chicken/meat']",20,none,medium
-dinner,shawrma,"['chicken/meat', 'bread']",20,none,easy
