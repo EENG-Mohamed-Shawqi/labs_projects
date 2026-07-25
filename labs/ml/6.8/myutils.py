@@ -6,38 +6,42 @@ def skew_calc(df):
     It returns a DataFrame with the following columns:
     Feature, Skewness, Degree, Direction, Recommended Transformation
     """
-    # Your code here
-    results = []
-    for i in df.select_dtypes(include='number').columns:
-        skew = df[i].skew()
-        if -0.5 < skew < 0.5:
-            degree = 'approximately symmetric'
-        elif -1 < skew < 1:
-            degree = 'moderately skewed'
-        else:
-            degree = 'highly skewed'
+    # Your code here 
+    results=[]
 
-        if skew > 0:
-            direction = 'positive'
-        elif skew < 0:
-            direction = 'negative'
-        else:
-            direction = 'Symmetric'
+    numeric_columns=df.select_dtypes(include='number').columns
 
-        if -0.5 < skew < 0.5:
-            transform = 'None needed'
-        elif df[i].min() == 0:
-            transform = 'log plus one or yeo-johnson'
-        elif df[i].min() < 0:
-            transform = 'yeo-johnson'
-        else:
-            transform = 'box-cox or yeo-johnson'
+    for i in numeric_columns:
+        skew=df[i].skew()
 
-        results.append({
-            'Feature': i,
-            'Skewness': skew,
-            'Degree': degree,
-            'Direction': direction,
-            'Recommended Transformation': transform})
+        if abs(skew)<0.5:
+            deg='Approximately Symmetric'
+        elif 0.5<=abs(skew)<=1:
+            deg='Moderately Skewed'
+        elif abs(skew)>1:
+            deg='Highly Skewed'
+
+        if abs(skew)<0.5:
+            action='None needed'
+        elif df[i].min()>0:
+            action='Box-Cox or Yeo-Johnson'
+        elif (df[i]>=0).all():
+            action='log(x+1) or Yeo-Johnson'
+        else:
+            action='Yeo-Johnson'
+
+        if skew>0:
+            direction='Positive'
+        elif skew<0:
+            direction='Negative'
+        else:
+            direction='Symmetric'
+
+        results.append({'Feature':i,
+                       'Skewness':skew,
+                       'Degree':deg,
+                       'Direction':direction,
+                       'Recommended Transformation':action})
+
 
     return pd.DataFrame(results)
